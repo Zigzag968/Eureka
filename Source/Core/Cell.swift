@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import UIKit
 
 /// Base class for the Eureka cells
 open class BaseCell: UITableViewCell, BaseCellType {
@@ -36,8 +37,8 @@ open class BaseCell: UITableViewCell, BaseCellType {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    public required override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+
+    public required override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
@@ -47,7 +48,7 @@ open class BaseCell: UITableViewCell, BaseCellType {
     public func formViewController() -> FormViewController? {
         var responder: AnyObject? = self
         while responder != nil {
-            if let childsVC = (responder as? UIViewController)?.childViewControllers, childsVC.count > 0 {
+            if let childsVC = (responder as? UIViewController)?.children, childsVC.count > 0 {
                 for childVC in childsVC {
                     if let formVC = childVC as? FormViewController { return formVC }
                 }
@@ -108,10 +109,10 @@ open class Cell<T: Equatable> : BaseCell, TypedCellType {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+
+    required public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        height = { UITableViewAutomaticDimension }
+        height = { UITableView.automaticDimension }
     }
     
     /**
